@@ -1,15 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h2>Todos</h2>
+  <div class="todos">
+    <TodoList @newTodo="onNewTodo" @removeTodo="onRemoveTodo" />
+  </div>
+
+  <h2>Stats</h2>
+  <div class="stats">
+    {{ counter }}
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+import TodoList from './components/TodoList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TodoList
+  },
+  setup() {
+    const counter = ref(0)
+
+    const onNewTodo = () => {
+      counter.value += 1
+    }
+
+    const onRemoveTodo = () => {
+      counter.value -= 1
+    }
+
+    return {
+      counter,
+      onNewTodo,
+      onRemoveTodo
+    }
   }
 }
 </script>
@@ -22,5 +47,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.todos {
+  margin: 0 auto;
+  width: 50%;
 }
 </style>
